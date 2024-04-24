@@ -1,5 +1,6 @@
 #include "Customer.h"
 
+// default constructor
 Customer::Customer()
 {
 	cName = "none";
@@ -8,6 +9,7 @@ Customer::Customer()
 	phoneArray = new Cellphone[1];
 }
 
+// constructor that takes name and number of phones bought
 Customer::Customer(string custName, int num)
 {
 	cName = custName;

@@ -22,9 +22,11 @@ QUIT = 3;			// quit menu choice
 
 // function prototypes
 void header();	// shows program info
+// creates a stack for keeping inventory
 void createStack(stack<Cellphone, vector<Cellphone>>&);
 // creates a customer and adds info to the queue
 void buyPhone(stack<Cellphone, vector<Cellphone>>&, deque<Customer>&);
+// checks out customers one at a time
 void checkOut(stack<Cellphone, vector<Cellphone>>&, deque<Customer>&);
 bool menuValid(int);
 
@@ -91,7 +93,10 @@ int main()
 
 
 
-// stack
+// Function open file, if it can't open then give an error. If it can open, then
+// loop through the file getting two lines at a time and putting the lines
+// into a temp object. After the temp object is made, then push the object into the
+// stack. Close the file afterwards.
 void createStack(stack<Cellphone, vector<Cellphone>>& cellStack)
 {
 	// create temporary variables for holding file info
@@ -156,7 +161,8 @@ void buyPhone(stack<Cellphone, vector<Cellphone>>& cellStack, deque<Customer>& c
 			}
 			if (num<MIN_PURCHASE || num>MAX_PURCHASE)
 			{
-				cout << "Error - you can only purchase 1 - 6 phones. Please reenter!\n\n";
+				cout << "Error - you can only purchase 1 - " << (MAX_PHONES - counter)
+					<< " phones.Please reenter!\n\n";
 			}
 		} while ((counter + num) > MAX_PHONES || num<MIN_PURCHASE || num>MAX_PURCHASE);
 		counter += num;
@@ -178,11 +184,11 @@ void checkOut(stack<Cellphone, vector<Cellphone>>& cellStack, deque<Customer>& c
 	}
 	else
 	{
-		cout << "Customer Receipt:\n"
-			<< "Customer name: " << custDeque.front().getCName()
-			<< "\nNumber phones: " << custDeque.front().getPurchaseNum();
+		cout << left << setw(16) << endl << "Customer Receipt" << ": \n";
+		cout << left << setw(16) << "Customer name" << ": " << custDeque.front().getCName() << endl;
+		cout << left << setw(16) << "Number phones" << ": " << custDeque.front().getPurchaseNum() << endl;
 		cout << setprecision(2) << fixed << showpoint;
-		cout << "\nTotal amount due: $" << custDeque.front().getTotalCost() << endl << endl;
+		cout << left << setw(16) << "Total amount due" << ": $" << custDeque.front().getTotalCost() << endl << endl;
 		cout << noshowpoint;
 		cout << "Phone(s) id and number:\n";
 		for (int i = 0; i < custDeque.front().getPurchaseNum(); i++)
