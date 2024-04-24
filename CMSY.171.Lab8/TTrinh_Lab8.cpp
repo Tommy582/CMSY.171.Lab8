@@ -1,6 +1,7 @@
-// program written by
+// program written by Tommy Trinh
 // April 23
-// this program
+// this program keeps track of a cell phone store's inventory and
+// can print out receipts
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -93,8 +94,10 @@ int main()
 // stack
 void createStack(stack<Cellphone, vector<Cellphone>>& cellStack)
 {
-	// create temporary cellphone object
+	// create temporary variables for holding file info
 	Cellphone temp;
+	string tempId,
+		tempNum;
 
 	// open file for reading
 	ifstream iFile(invFile);
@@ -105,7 +108,13 @@ void createStack(stack<Cellphone, vector<Cellphone>>& cellStack)
 	}
 	else
 	{
-		
+		while (!iFile.eof())
+		{
+			getline(iFile, tempId);
+			getline(iFile, tempNum);
+			Cellphone temp(tempId, tempNum);
+			cellStack.push(temp);
+		}
 	}
 	// close file
 	iFile.close();
@@ -171,8 +180,10 @@ void checkOut(stack<Cellphone, vector<Cellphone>>& cellStack, deque<Customer>& c
 	{
 		cout << "Customer Receipt:\n"
 			<< "Customer name: " << custDeque.front().getCName()
-			<< "\nNumber phones: " << custDeque.front().getPurchaseNum()
-			<< "\nTotal amount due: $" << custDeque.front().getTotalCost() << endl << endl;
+			<< "\nNumber phones: " << custDeque.front().getPurchaseNum();
+		cout << setprecision(2) << fixed << showpoint;
+		cout << "\nTotal amount due: $" << custDeque.front().getTotalCost() << endl << endl;
+		cout << noshowpoint;
 		cout << "Phone(s) id and number:\n";
 		for (int i = 0; i < custDeque.front().getPurchaseNum(); i++)
 		{
@@ -180,6 +191,7 @@ void checkOut(stack<Cellphone, vector<Cellphone>>& cellStack, deque<Customer>& c
 				<< "Phone number: " << cellStack.top().getPhoneNum() << endl;
 			cellStack.pop();
 		}
+		custDeque.pop_front();
 	}
 }
 
