@@ -6,16 +6,16 @@ Customer::Customer()
 	cName = "none";
 	purchaseNum = 0;
 	totalCost = 0.0; 
-	phoneArray = new Cellphone[1];
+	phoneArray[1];
 }
 
 // constructor that takes name and number of phones bought
-Customer::Customer(string custName, int num)
+Customer::Customer(string custName, int num, Cellphone cellArray[])
 {
 	cName = custName;
 	purchaseNum = num;
 	totalCost = calcTotalCost(num);
-	phoneArray = new Cellphone[purchaseNum];
+	setPhoneArray(num, cellArray);
 }
 
 // accessor function for customer name
@@ -36,6 +36,11 @@ double Customer::getTotalCost() const
 	return totalCost;
 }
 
+Cellphone Customer::getPhoneArray()
+{
+	return *phoneArray;
+}
+
 // mutator function for customer name
 void Customer::setCName(string name)
 {
@@ -49,9 +54,12 @@ void Customer::setPurchaseNum(int num)
 }
 
 // mutator function for cellphone array
-void Customer::setPhoneArray(int num)
+void Customer::setPhoneArray(int num,Cellphone cellArray[])
 {
-	phoneArray = new Cellphone[num];
+	for (int i = 0; i < num; i++)
+	{
+		phoneArray[i] = cellArray[i];
+	}
 }
 
 // calculates total cost

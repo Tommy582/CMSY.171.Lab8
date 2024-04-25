@@ -19,20 +19,21 @@ private:
 	string cName;			// holds customer's name
 	int purchaseNum;		// holds number of phones purchased
 	double totalCost;		// total cost of order
-	Cellphone* phoneArray =nullptr;
+	Cellphone phoneArray[MAX_PURCHASE];
 public:
 	Customer();				// default constructor
-	Customer(string, int);	// constructor that takes two arguments
+	Customer(string custName, int num,Cellphone cellArray[]);	// constructor that takes two arguments
 
 	// accessor functions
 	string getCName() const;
 	int getPurchaseNum() const;
 	double getTotalCost() const;
+	Cellphone getPhoneArray();
 
 	// mutator functions
 	void setCName(string);
 	void setPurchaseNum(int);
-	void setPhoneArray(int);
+	void setPhoneArray(int,Cellphone[]);
 
 	double calcTotalCost(int);	// calculate total cost
 

@@ -100,7 +100,6 @@ int main()
 void createStack(stack<Cellphone, vector<Cellphone>>& cellStack)
 {
 	// create temporary variables for holding file info
-	Cellphone temp;
 	string tempId,
 		tempNum;
 
@@ -137,13 +136,14 @@ void buyPhone(stack<Cellphone, vector<Cellphone>>& cellStack, deque<Customer>& c
 	static int counter = 0;		// counter variable counts num phones sold 
 	if (cellStack.empty())
 	{
-		cout << "Error - inventory empty, returning to menu\n\n";
+		cout << "\nError - inventory empty, returning to menu\n\n";
 		return;
 	}
 	else
 	{
-		cout << "Please enter in the customer name: ";
+		cout << "\nPlease enter in the customer name: ";
 		getline(cin, custName);
+		Cellphone tempArray[MAX_PURCHASE];
 		do
 		{
 			if (MAX_PHONES - counter > MAX_PURCHASE)
@@ -159,14 +159,14 @@ void buyPhone(stack<Cellphone, vector<Cellphone>>& cellStack, deque<Customer>& c
 				cout << "Error - there are only " << (MAX_PHONES - counter)
 					<< " cellphones left. Please reenter.\n\n";
 			}
-			if (num<MIN_PURCHASE || num>MAX_PURCHASE)
+			else if (num<MIN_PURCHASE || num>MAX_PURCHASE)
 			{
-				cout << "Error - you can only purchase 1 - " << (MAX_PHONES - counter)
+				cout << "Error - you can only purchase 1 - " << (MAX_PURCHASE)
 					<< " phones.Please reenter!\n\n";
 			}
 		} while ((counter + num) > MAX_PHONES || num<MIN_PURCHASE || num>MAX_PURCHASE);
 		counter += num;
-		Customer temp(custName, num);
+		Customer temp(custName, num,tempArray);
 		custDeque.push_back(temp);
 	}
 }
